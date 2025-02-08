@@ -1,0 +1,9 @@
+.env.local
+/.fleet
+/.idea
+/.vscode
+/**/.DS_Store
+/DBDocker
+.editorconfig
+.gitattributes
+/**/TmpCommand.php
