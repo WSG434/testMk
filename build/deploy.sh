@@ -8,7 +8,7 @@ docker compose down
 echo "Pulling latest code..."
 git pull
 echo "Starting containers..."
-docker compose -f docker-compose.prod.yml --env-file=.env.local up --build -d
+docker compose --env-file=.env.local -f docker-compose.prod.yml up --build -d
 echo "Waiting for the container to be ready..."
 while ! docker compose ps $PHP_SERVICE | grep -q 'Up'; do
   sleep 2
