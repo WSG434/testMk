@@ -1,0 +1,39 @@
+
+
+.form-section {
+    background-color: #FFFFFF; /* Белый фон */
+    border-radius: 12px; /* Скругленные края */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Легкая тень */
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+textarea, select {
+    background-color: #F2F2F7; /* Светло-серый фон для полей */
+    border: none;
+    padding: 10px;
+    border-radius: 8px; /* Скругленные углы для полей ввода */
+    font-size: 16px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.timeframe-entry {
+    /*margin-bottom: 20px; !* Расстояние между секциями *!*/
+    /*padding: 15px; !* Внутренние отступы *!*/
+    /*border: 1px solid #ccc; !* Граница секции *!*/
+    /*border-radius: 5px; !* Закругленные углы *!*/
+    /*background-color: #f9f9f9; !* Фоновый цвет секции *!*/
+    /*margin-top: 10px; !* Расстояние между таймфреймами *!*/
+}
+
+button {
+    background-color: #007AFF; /* Синий цвет Apple */
+    color: #FFFFFF;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+

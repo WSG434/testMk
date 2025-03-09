@@ -17,28 +17,42 @@ class PersonRepository extends ServiceEntityRepository
         parent::__construct($registry, Person::class);
     }
 
-    //    /**
-    //     * @return Person[] Returns an array of Person objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function clear()
+    {
+        return  $this->createQueryBuilder('q')
+            ->delete()
+            ->getQuery()
+            ->execute();
+    }
 
-    //    public function findOneBySomeField($value): ?Person
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function getPopulation(): array
+    {
+        $people = $this->createQueryBuilder('p')
+            ->getQuery()
+            ->getResult();
+        if (empty($people)) {
+            return [];
+        }
+        $yearData = [];
+        foreach ($people as $person) {
+            $birthYear = (int) $person->getBirthDate()->format('Y');
+            $deathYear = (int) $person->getDeathDate()->format('Y');
+            for ($year = $birthYear; $year <= $deathYear; $year++) {
+                if (!isset($yearData[$year])) {
+                    $yearData[$year] = ['count' => 0, 'persons' => []];
+                }
+                $yearData[$year]['count']++;
+                $yearData[$year]['persons'][] = $person;
+            }
+        }
+        if (empty($yearData)) {
+            return [];
+        }
+        $maxCount = max(array_column($yearData, 'count'));
+        $population = array_filter($yearData, fn($data) => $data['count'] === $maxCount);
+        ksort($population);
+
+        return $population;
+    }
+
 }
