@@ -8,10 +8,9 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PersonRepository::class)]
-#[ORM\Table(name: 'person', indexes: [
-    new ORM\Index(name: 'idx_birth_year', columns: ['birth_year']),
-    new ORM\Index(name: 'idx_death_year', columns: ['death_year']),
-])]
+#[ORM\Table(name: 'person')]
+#[ORM\Index(name: 'idx_birth_date', columns: ['birth_date'])]
+#[ORM\Index(name: 'idx_death_date', columns: ['death_date'])]
 class Person
 {
     #[ORM\Id]
