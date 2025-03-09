@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-PHP_SERVICE="php-fpm"  # Используем имя сервиса из docker-compose.yml
+PHP_SERVICE="php-fpm"
 
 echo "Starting deployment..."
 echo "Stopping containers..."

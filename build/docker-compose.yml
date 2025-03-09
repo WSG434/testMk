@@ -1,4 +1,4 @@
-name: beneficium_sleep
+name: testMk
 services:
   nginx:
     build:

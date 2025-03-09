@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}testMk{% endblock %}
+
+{% block css %}
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 1000px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1em;
+        }
+        th, td {
+            padding: 0.5em;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        th {
+            background: #f5f5f5;
+        }
+        .buttons {
+            margin-top: 1em;
+        }
+        .buttons button {
+            padding: 0.5em 1em;
+            font-size: 16px;
+            margin-right: 1em;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <h1>Люди</h1>
+
+        {% if topYears is defined %}
+            <div class="result">
+                <h2>Максимальная популяция:</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>№ п.п.</th>
+                        <th>Год</th>
+                        <th>Живущие люди (ID)</th>
+                        <th>Количество</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for year, data in topYears %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ year }}</td>
+                            <td>
+                                {% for person in data.persons %}
+                                    {{ person.id }}{% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>{{ data.count }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+
+        {% if people is defined and people is not empty %}
+            <h2>Таблица:</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>№ п.п.</th>
+                    <th>ID</th>
+                    <th>Дата рождения</th>
+                    <th>Дата смерти</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for person in people %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ person.id }}</td>
+                        <td>{{ person.birthDate|date('d.m.Y') }}</td>
+                        <td>{{ person.deathDate|date('d.m.Y') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Таблица пуста</p>
+        {% endif %}
+
+        <div class="buttons">
+            <form method="post" action="{{ path('generate_people') }}" style="display: inline;">
+                <button type="submit">Сгенерировать</button>
+            </form>
+            <form action="{{ path('clear_people') }}" method="post" style="display: inline;" onsubmit="return confirm('Вы уверены, что хотите очистить таблицу?');">
+                <button type="submit" class="btn btn-danger">Очистить таблицу</button>
+            </form>
+            <form method="post" action="{{ path('find_max_years') }}" style="display: inline;">
+                <button type="submit">Найти</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
